@@ -1,0 +1,12 @@
+.previewDiv{
+    margin-top:20px;
+    display:block;
+    width:100%;
+    height: auto;
+}
+#preview{
+    display:block;
+    height: 100px;
+    width:100%;
+    border: 1px solid #cacaca;
+}
