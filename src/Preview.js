@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import './Preview.css';
 
 const Preview = ({editorText}) => {
@@ -6,7 +7,7 @@ const Preview = ({editorText}) => {
         <div className="previewDiv">
             <label>Editor Preview</label>
             <div id="preview" className="ui form">
-            {editorText}
+                <ReactMarkdown source={editorText} />
             </div>
         </div>
     )   

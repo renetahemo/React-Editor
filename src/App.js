@@ -1,6 +1,7 @@
 import React from 'react';
 import Editor from './Editor';
 import Preview from './Preview';
+import ReactMarkdown from 'react-markdown';
 
 class App extends React.Component {
     state = {text: ''};
