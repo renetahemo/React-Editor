@@ -115,7 +115,7 @@ export default Preview;
 ```
 Properites:
 * **editorText** props value from App
-* The Markdown parsed by ReactMarkdown library and displays it as html
+* The Markdown parsed by react-markdown library and displays it as html
 
 ## Built With
 
