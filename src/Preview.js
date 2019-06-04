@@ -5,8 +5,8 @@ import './Preview.css';
 const Preview = ({editorText}) => {
     return (
         <div className="previewDiv">
-            <label>Editor Preview</label>
-            <div id="preview" className="ui form">
+            <label><h1>Preview</h1></label>
+            <div id="preview">
                 <ReactMarkdown source={editorText} />
             </div>
         </div>

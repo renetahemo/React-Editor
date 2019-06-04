@@ -1,0 +1,10 @@
+.AppDiv {
+    position: relative;
+    border: 1px solid #cacaca;
+    padding: 20px;
+    display: flex;
+}
+.appColumn{
+    width: 50%!important;
+    padding:10px;
+}

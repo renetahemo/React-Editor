@@ -1,12 +1,12 @@
 .previewDiv{
-    margin-top:20px;
     display:block;
     width:100%;
     height: auto;
 }
 #preview{
     display:block;
-    min-height: 100px;
+    min-height: 370px;
     width:100%;
     border: 1px solid #cacaca;
+    padding-left: 10px;
 }

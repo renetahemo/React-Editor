@@ -1,13 +1,15 @@
 import React from 'react';
+import './Editor.css';
 
 class Editor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editorText: 'Please enter your text'
+            editorText: ''
         };
     }
 
+    //When editor changes, the state is updates and it's transfered to App using props
     handleChange = async (event) => {
         await this.setState({editorText: event.target.value});
         this.props.onEditorChange(this.state.editorText);
@@ -15,10 +17,9 @@ class Editor extends React.Component {
 
     render(){
         return (
-            <div className="ui form">
-                <div className="field"></div>
-                <label>Editor</label>
-                    <textarea id="editor" placeholder={this.state.editorText} onChange={this.handleChange}></textarea>
+            <div className="editorElement">
+                <label><h1>Editor</h1></label>
+                <textarea id="editor" value={this.props.defaultText} onChange={this.handleChange}></textarea>
             </div>
         )
     }

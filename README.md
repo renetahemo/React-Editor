@@ -1,68 +1,126 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Editor
+A Markdown WYSIWYG Editor for React.js, includes an Editor element and a Preview element.
+It allows enter GitHub flavored markdown to Editor element and display it on Privew element as HTML.
 
-## Available Scripts
+### Instalation
 
-In the project directory, you can run:
+You need to install it from NPM and include it in your own React build process.
 
-### `npm start`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+npm install ReactEditor --save
+```
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Usage
+### App.js
 
-### `npm test`
+```
+import React from 'react';
+import Editor from './Editor';
+import Preview from './Preview';
+import ReactMarkdown from 'react-markdown';
+import './App.css';
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+class App extends React.Component {
+    state = {text: ''};
 
-### `npm run build`
+    //Initializing editor text when markdown previewer first loads
+    componentDidMount() {
+        this.onEditorChange('# Hi \n## Please type some text \n[GitHub flavored Markdow](https://github.github.com/gfm) \n\n*inline code* \n\n`` code block `` \n\n- list item \n\n> blockqoute \n\n![image](/url) \n\n**bold text**');
+    }
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    //Updating state when editor element changed
+    onEditorChange = (editorText) => {
+        this.setState({text: editorText});
+    }
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+    render(){
+        return (
+            <div className="AppDiv">
+                    <div className="appColumn">
+                        <Editor defaultText={this.state.text} onEditorChange={this.onEditorChange} />
+                    </div>
+                    <div className="appColumn">
+                        <Preview editorText={this.state.text} />
+                    </div>
+            </div> 
+        )
+    }
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+export default App;
+```
+Properites:
+* State value **text** initialized as a String by componentDidMount function
+* **defaultText** prop of Editor component get state value **text** and displays it
+* **OnEditorChange** - get value from Editor component on change
+* **editorText** prop of Preview component updated by state value **text**;
 
-### `npm run eject`
+### Editor.js
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+import React from 'react';
+import './Editor.css';
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+class Editor extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editorText: ''
+        };
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    //When editor changes, the state is updates and it's transfered to App using props
+    handleChange = async (event) => {
+        await this.setState({editorText: event.target.value});
+        this.props.onEditorChange(this.state.editorText);
+    }
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    render(){
+        return (
+            <div className="editorElement">
+                <label><h1>Editor</h1></label>
+                <textarea id="editor" value={this.props.defaultText} onChange={this.handleChange}></textarea>
+            </div>
+        )
+    }
+}
 
-## Learn More
+export default Editor;
+```
+Properites:
+* **handleChange** - function called when a change is made in the textarea
+* State value **editorText** is updated by textarea value entered
+* **onEditorChange** props of App is updated by **editorText**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Preview.js
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import './Preview.css';
 
-### Code Splitting
+const Preview = ({editorText}) => {
+    return (
+        <div className="previewDiv">
+            <label><h1>Preview</h1></label>
+            <div id="preview">
+                <ReactMarkdown source={editorText} />
+            </div>
+        </div>
+    )   
+}
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+export default Preview;
+```
+Properites:
+* **editorText** props value from App
+* The Markdown parsed by ReactMarkdown library and displays it as html
 
-### Analyzing the Bundle Size
+## Built With
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+* React
+* JavaScript
+* CSS
+* react-markdown libarary
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
